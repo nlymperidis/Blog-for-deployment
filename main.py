@@ -41,7 +41,6 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 # CONNECT TO DB
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///blog.db")
 # app.config['SQLALCHEMY_BINDS'] = {'users': 'sqlite:///blog.db'}
 db = SQLAlchemy()
@@ -102,8 +101,8 @@ class Comment(db.Model):
     text = db.Column(db.Text, nullable=False)
 
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 
 # Create admin-only decorator
