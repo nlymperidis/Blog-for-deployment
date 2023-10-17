@@ -91,7 +91,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # *******Add child relationship******* #
-    # "users.id" The users refers to the tablename of the Users class.
+    # "users.id" The "users" refers to the tablename of the Users class.
     # "comments" refers to the comments property in the User class.
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     comment_author = relationship("User", back_populates="comments")
@@ -110,7 +110,7 @@ with app.app_context():
 def admin_only(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        # If id is not 1 then return abort with 403 error
+        # If id is not 1, then return abort with 403 error
         if current_user.id != 1:
             return abort(403)
         # Otherwise continue with the route function
