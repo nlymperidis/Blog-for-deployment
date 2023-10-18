@@ -1,6 +1,6 @@
 import os
 from datetime import date
-from flask import Flask, abort, render_template, redirect, url_for, flash
+from flask import Flask, abort, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
@@ -10,6 +10,9 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+
+MY_EMAIL = "nikos.lyberidis@gmail.com "
+PASSWORD = os.environ.get("PASSWORD")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
@@ -260,9 +263,32 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    return render_template("contact.html", current_user=current_user)
+    if request.method == "GET":
+        return render_template("contact.html", msg_sent=False, current_user=current_user)
+    else:
+        data = request.form
+        send_email(data)
+        return render_template("contact.html", msg_sent=True, current_user=current_user)
+
+
+def send_email(info):
+    import smtplib
+    text = (f"Subject:New Message\n\n"
+            f"Name: {info['name']}\n"
+            f"Email: {info['email']}\n"
+            f"Phone: {info['phone']}\n"
+            f"Message: {info['message']}\n")
+
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()  # TLS makes the connection secure
+        connection.login(MY_EMAIL, PASSWORD)
+        connection.sendmail(
+            from_addr=MY_EMAIL,
+            to_addrs=MY_EMAIL,
+            msg=text.encode("utf-8")
+        )
 
 
 if __name__ == "__main__":
