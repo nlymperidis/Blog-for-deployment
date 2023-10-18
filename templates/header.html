@@ -66,34 +66,7 @@
                 >Home</a
               >
             </li>
-            <!-- Only show Login/Register if the user is logged out. Otherwise, show "Log Out" -->
-            {% if not current_user.is_authenticated %}
-              <li class="nav-item">
-                <a
-                  class="nav-link px-lg-3 py-3 py-lg-4"
-                  href="{{ url_for('login') }}"
-                  >Login</a
-                >
-              </li>
-            <li class="nav-item">
-              <a
-                class="nav-link px-lg-3 py-3 py-lg-4"
-                href="{{ url_for('register') }}"
-                >Register</a
-              >
-            </li>
-            {% else %}
-            <li class="nav-item dropdown">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" id="userDropdown" role="button"
-                 data-bs-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false">
-                {{ current_user.name }}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
-              </div>
-            </li>
-            {% endif %}
+
             <li class="nav-item">
               <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
@@ -108,6 +81,34 @@
                 >Contact</a
               >
             </li>
+            <!-- Only show Login/Register if the user is logged out. Otherwise, show "Log Out" -->
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a
+                      class="nav-link px-lg-3 py-3 py-lg-4"
+                      href="{{ url_for('login') }}"
+              >Login</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                      class="nav-link px-lg-3 py-3 py-lg-4"
+                      href="{{ url_for('register') }}"
+              >Register</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item dropdown">
+              <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" id="userDropdown" role="button"
+                 data-bs-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                {{ current_user.name }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+              </div>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
