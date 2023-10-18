@@ -83,12 +83,16 @@
               >
             </li>
             {% else %}
-            <li class="nav-item">
-              <a
-                class="nav-link px-lg-3 py-3 py-lg-4"
-                href="{{ url_for('logout') }}"
-                >Log Out</a
-              >
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                {{ current_user.name }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+              </div>
             </li>
             {% endif %}
             <li class="nav-item">
@@ -103,12 +107,6 @@
                 class="nav-link px-lg-3 py-3 py-lg-4"
                 href="{{ url_for('contact') }}"
                 >Contact</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link px-lg-3 py-3 py-lg-4"
-                >{{current_user.name}}</a
               >
             </li>
           </ul>
