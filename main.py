@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
-MY_EMAIL = "nikos.lyberidis@gmail.com "
+MY_EMAIL = "nikos.lyberidis@gmail.com"
 PASSWORD = os.environ.get("PASSWORD")
 
 app = Flask(__name__)
